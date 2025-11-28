@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const routes = require('./routes')
 const bodyParser = require('body-parser')
 const errorhandler = require('errorhandler')
@@ -19,6 +20,7 @@ let store = {
 
 let app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(errorhandler())
 
@@ -36,5 +38,6 @@ app.get('/posts/:postId/comments', routes.comments.getComments)
 app.post('/posts/:postId/comments', routes.comments.addComment)
 app.put('/posts/:postId/comments/:commentId', routes.comments.updateComment)
 app.delete('/posts/:postId/comments/:commentId', routes.comments.removeComment)
+
 
 app.listen(3000)
