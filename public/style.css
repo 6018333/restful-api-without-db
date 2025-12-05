@@ -50,6 +50,15 @@ h2 {
     border-radius: 4px;
 }
 
+.post-item aside {
+    float: right;
+}
+
+.post-item aside button{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
 .post-item h3 {
     color: #333;
     margin: 0 0 8px;

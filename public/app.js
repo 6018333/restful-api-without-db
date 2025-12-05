@@ -21,7 +21,9 @@ async function loadPosts() {
         }
 
         postsList.innerHTML = "";
+        let id = 0;
         for(let post of posts) {
+            post.id = id++; 
             showPost(post);
         }
     } catch (error) {
@@ -33,7 +35,8 @@ async function loadPosts() {
 function showPost(post) {
     const postsList = document.getElementById('posts-list');
     postsList.innerHTML += `
-        <div class="post-item">
+        <div class="post-item" data-id="${post.id}">
+            <aside><button class="edit">&#x1F58B;</button><button class="delete">&#x1F5D1;</button></aside>
             <h3>${post.name}</h3>
             <p><a href="${post.url}" target="_blank">${post.url}</a></p>
             <p>${post.text}</p>
