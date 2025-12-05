@@ -27,22 +27,35 @@ async function loadPosts() {
             showPost(post);
         }
     } catch (error) {
-        postsList.innerHTML = `<div class="error">Fout bij laden van posts: ${error.message}</div>`;
+        // Template opgezocht in de HTML
+        const errorTemplate = document.querySelector("#post-error-template");
+        // Clone gemaakt van de INHOUD van deze template
+        const errorClone = errorTemplate.content.cloneNode(true);
+        // <div class=error> opgezocht in de clone.
+        const errorDiv = errorClone.querySelector(".error");
+        // De tekstuele foutmelding toegevoegd aan de <div>
+        errorDiv.innerHTML = `Fout bij laden van posts: ${error.message}`;
+
+        postsList.replaceChildren(errorClone);
         console.error('Error loading posts:', error);
     }
 }
 
 function showPost(post) {
     const postsList = document.getElementById('posts-list');
-    postsList.innerHTML += `
-        <div class="post-item" data-id="${post.id}">
-            <aside><button class="edit">&#x1F58B;</button><button class="delete">&#x1F5D1;</button></aside>
-            <h3>${post.name}</h3>
-            <p><a href="${post.url}" target="_blank">${post.url}</a></p>
-            <p>${post.text}</p>
-            ${post.comments ? `<p><em>${post.comments.length} reacties</em></p>` : ''}
-        </div>
-    `;
+    const postTemplate = document.querySelector("#post-item-template");
+    const postClone = postTemplate.content.cloneNode(true);
+    const postLink = postClone.querySelector('.url a')
+
+    postClone.querySelector('.title').innerHTML = post.name;
+    postLink.innerHTML = post.url;
+    postLink.href = post.url
+    postClone.querySelector(".text").innerHTML = post.text;
+    if(post.comments) {
+        postClone.querySelector(".comments").innerHTML = `${post.comments.length || 0} reacties`;
+    }
+
+    postsList.appendChild(postClone);
 }
 
 // Add new post
