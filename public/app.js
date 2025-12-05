@@ -52,7 +52,7 @@ function showPost(post) {
     postLink.href = post.url
     postClone.querySelector(".text").innerHTML = post.text;
     if(post.comments) {
-        postClone.querySelector(".comments").innerHTML = `${post.comments.length || 0} reacties`;
+        postClone.querySelector(".comments").innerHTML = `${post.comments.length} reacties`;
     }
 
     postsList.appendChild(postClone);
