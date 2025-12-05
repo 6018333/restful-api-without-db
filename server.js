@@ -23,6 +23,7 @@ let app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(errorhandler())
+app.use(express.static('public'))
 
 app.use((req, res, next) => {
     req.store = store
